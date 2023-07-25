@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block titulo %}Lista de libros{% endblock %}
+
+{% block contenido %}
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'inicio' %}">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Lista de libros</li>
+    </ol>
+</nav>
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'crear' %}" role="button">Agregar nuevo libro</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Libros</h4>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for libro in libros %}
+                <tr>
+                    <td>{{ libro.id }}</td>
+                    <td>{{ libro.titulo }}</td>
+                    <td>
+                        <img src="{{ libro.imagen.url }}" height="100">
+                    </td>
+                    <td>{{ libro.descripcion }}</td>
+                    <td>
+                        <a name="" id="" class="btn btn-info" href="{% url 'editar' libro.id %}" role="button">Editar</a>
+                        <br>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar' libro.id %}" role="button">Borrar</a>
+                        <br>
+                        {% if libro.archivo_pdf %}
+                        <a name="" id="" class="btn btn-primary" href="{{ libro.archivo_pdf.url }}" role="button" download>Descargar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="card-footer text-muted">
+
+    </div>
+</div>
+
+{% endblock %}
